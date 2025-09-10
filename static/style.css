@@ -1,0 +1,273 @@
+/* --- Google Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+/* --- CSS Variables for Easy Theming --- */
+:root {
+    --primary-color: #b00a0f; /* ABBYY Red */
+    --primary-hover: #8d080c;
+    --text-color: #333;
+    --background-color: #f4f6f9;
+    --card-background: #ffffff;
+    --border-color: #dde2e7;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+}
+
+/* --- Global & Body Styles --- */
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 0.75rem;
+}
+
+/* --- Section Header with Arrow --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+.section-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+.toggle-arrow {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    transition: transform 0.2s ease;
+}
+.toggle-arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+/* --- Card Component --- */
+.card {
+    background: var(--card-background);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+/* --- Form Elements --- */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+select {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(176, 10, 15, 0.2);
+}
+
+button {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* --- Table Styles --- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-top: 1.2rem;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tr {
+    background-color: var(--card-background);
+}
+tr:nth-child(even) {
+    background-color: #f8fafd;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* --- Table Color Swatches --- */
+.color-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+/* --- Layout and Grid --- */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin: 2rem 0;
+}
+canvas {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 0 auto;
+}
+
+/* --- Error Message --- */
+.error {
+    background-color: #fff0f0;
+    color: var(--primary-color);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--error-color);
+}
+
+/* --- Summary Table --- */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 6px var(--shadow-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.summary-table th,
+.summary-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    color: #000;
+}
+.summary-table th {
+    background: #f9f9f9;
+    font-weight: 600;
+    text-align: left;
+    width: 60%;
+}
+.summary-table td {
+    text-align: right;
+}
+
+/* --- Table Actions (Right Corner) --- */
+.table-actions {
+    display: flex;
+    justify-content: flex-end; /* aligned to right */
+    gap: 10px;
+    margin: 12px 0;
+}
+.table-actions button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+.table-actions button:hover {
+    background-color: var(--primary-hover);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.logout-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 6px 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-hover);
+}
