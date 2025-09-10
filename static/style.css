@@ -217,15 +217,26 @@ canvas {
     padding: 10px 14px;
     border-bottom: 1px solid var(--border-color);
     color: #000;
+    text-align: left;
+    white-space: nowrap;   /* prevent wrapping */
 }
+
 .summary-table th {
     background: #f9f9f9;
     font-weight: 600;
     text-align: left;
-    width: 60%;
+    width: auto;           /* fix unwanted spacing */
 }
+
 .summary-table td {
     text-align: right;
+    width: auto;           /* keep columns tight */
+}
+
+.summary-table tr td:first-child {
+    width: 20px;           /* only for the color dot column */
+    text-align: center;
+    padding-right: 6px;
 }
 
 /* --- Table Actions (Right Corner) --- */
@@ -257,17 +268,25 @@ canvas {
     margin-bottom: 1.5rem;
 }
 
+/* --- Logout Button --- */
+.logout-container {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
 .logout-btn {
-    background-color: var(--primary-color);
-    color: white;
     padding: 6px 14px;
-    text-decoration: none;
+    background: #b3000c;
+    color: white;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
     font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s ease;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: background 0.2s;
 }
 
 .logout-btn:hover {
-    background-color: var(--primary-hover);
+    background: #800008;
 }

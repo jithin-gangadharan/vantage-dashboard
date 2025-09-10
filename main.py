@@ -30,6 +30,7 @@ def dashboard():
     css_link = '<link rel="stylesheet" href="/static/style.css">'
     chartjs = '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>'
 
+    # If not authenticated → show login form
     if not bearer_token:
         return f"""
         <html><head><title>ABBYY Vantage Dashboard</title>{css_link}</head>
@@ -52,6 +53,15 @@ def dashboard():
         </body></html>
         """
 
+    # --- Show logout button if authenticated ---
+    logout_btn = """
+    <div class="logout-container">
+        <form method="post" action="/logout">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+    """
+
     # --- Skills dropdown (filter only Process type) ---
     skill_opts = "".join(
         f"<option value='{s['id']}'>{s['name']}</option>"
@@ -67,6 +77,7 @@ def dashboard():
     error_html = f"<div class='error'>{last_error}</div>" if last_error else ""
     results_html = ""
 
+    # --- Results if transactions exist ---
     if transactions_cache:
         total_pages = sum(int(tx.get("pageCount") or 0) for tx in transactions_cache)
         straight = review_summary["straight_through"]
@@ -84,8 +95,8 @@ def dashboard():
             <table class="summary-table">
                 <tr><td></td><th>Total Transactions</th><td>{len(transactions_cache)}</td></tr>
                 <tr><td></td><th>Total Pages Consumed</th><td>{total_pages}</td></tr>
-                <tr><td style="color:{review_colors['Straight Through']}">⬤ </td><th>Straight Through</th><td>{straight}</td></tr>
-                <tr><td style="color:{review_colors['Manual Review']}">⬤ </td><th>Manual Review</th><td> {manual}</td></tr>
+                <tr><td style="color:{review_colors['Straight Through']}">⬤</td><th>Straight Through</th><td>{straight}</td></tr>
+                <tr><td style="color:{review_colors['Manual Review']}">⬤</td><th>Manual Review</th><td>{manual}</td></tr>
             </table>
         </div>
         <div class="half">
@@ -149,7 +160,7 @@ def dashboard():
             </script>
             """
 
-             # --- Transactions table ---
+        # --- Transactions table ---
         results_html += """
         <h3>📂 Transactions</h3>
         <table id="txTable">
@@ -167,7 +178,6 @@ def dashboard():
                 if fp.get("key") == "SourceFileName":
                     source_file = fp.get("value", "")
             mr = tx.get("manualReview", "")
-            color = review_colors["Manual Review"] if mr == "Yes" else review_colors["Straight Through"]
             results_html += f"""
             <tr>
                 <td>{tx.get('transactionId','')}</td>
@@ -224,6 +234,7 @@ def dashboard():
         </script>
     </head>
     <body>
+        {logout_btn}
         <div class="container">
             <h1>ABBYY Vantage Dashboard</h1>
             {error_html}
@@ -390,13 +401,15 @@ def get_transactions(skill_id: str = Form(...), transaction_type: str = Form(...
     return RedirectResponse("/", status_code=303)
 
 
-    @app.get("/logout")
-    def logout():
-        global bearer_token, vantage_url, skills_cache, transactions_cache, summary_cache, docskill_cache
-        bearer_token = None
-        vantage_url = None
-        skills_cache = []
-        transactions_cache = []
-        summary_cache = {}
-        docskill_cache = {}
-        return RedirectResponse("/", status_code=303)
+# ---------- API: Logout ----------
+@app.post("/logout")
+def logout():
+    global bearer_token, vantage_host, skills_cache, transactions_cache, review_summary, docskill_summary, last_error
+    bearer_token = None
+    vantage_host = None
+    skills_cache = []
+    transactions_cache = []
+    review_summary = {"with_manual_review": 0, "straight_through": 0}
+    docskill_summary = {}
+    last_error = ""
+    return RedirectResponse("/", status_code=303)
